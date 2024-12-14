@@ -5,3 +5,5 @@
 - Protobuffer encoding
 - GRPC transport (gossip)
 - POS consensus (TBD)
+
+export PATH="$PATH:$(go env GOPATH)/bin"
