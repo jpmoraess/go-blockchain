@@ -12,6 +12,7 @@ const (
 	pubKeyLen  = 32
 	seedLen    = 32
 	addressLen = 20
+	signLen    = 64
 )
 
 type PrivateKey struct {
@@ -70,6 +71,15 @@ type PublicKey struct {
 	key ed25519.PublicKey
 }
 
+func PublicKeyFromBytes(b []byte) *PublicKey {
+	if len(b) != pubKeyLen {
+		panic("invalid public key length, must 32")
+	}
+	return &PublicKey{
+		key: ed25519.PublicKey(b),
+	}
+}
+
 func (p *PublicKey) Bytes() []byte {
 	return p.key
 }
@@ -82,6 +92,15 @@ func (p *PublicKey) Address() Address {
 
 type Signature struct {
 	value []byte
+}
+
+func SignatureFromBytes(b []byte) *Signature {
+	if len(b) != signLen {
+		panic("length of the bytes not equal to 64")
+	}
+	return &Signature{
+		value: b,
+	}
 }
 
 func (s *Signature) Bytes() []byte {
